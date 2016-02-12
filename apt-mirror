@@ -559,6 +559,10 @@ sub process_translation_index
                 if ( @parts == 3 )
                 {
                     my ( $sha1, $size, $filename ) = @parts;
+                    if ( $filename =~ /.*\/([^\/]*)$/ ) {
+                        warn("Removing path from Index line \"$line\" in $index_uri");
+                        $filename = $1;
+                    }
                     add_url_to_download( $base_uri . $filename, $size );
                 }
                 else
